@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test page</title>
+    <script type="text/javascript" src="js/common/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jpager.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jpager.css"/>
+</head>
+<body>
+
+<div id="jpager"></div>
+
+<script type="text/javascript">
+    function getParameter(name) {
+        var str = "(^|&)" + name + "=([^&]*)(&|$)";
+        var reg = new RegExp(str);
+        var subStr = window.location;
+        //截取从字符串索引从1到最后的字符串返回  window.location.search.substr(1)
+        subStr = subStr.search.substr(1);
+        var r = subStr.match(reg);
+        if (r != null) {
+            /**
+             unescape() 函数可对通过
+             escape() 编码的字符串进行解码
+             */
+            return unescape(r[2]);
+        }
+
+        return null;
+    }
+
+    //init
+    $(function () {
+        debugger;
+        //总页数
+        var totalPage = 20;
+        //总记录数
+        var totalRecords = 390;
+        //当前显示那一页
+        var pageNo = getParameter('pageNo');
+        if (!pageNo) {
+            pageNo = 1;
+        }
+        //生成分页
+        jpager.generPageHtml({
+            pno: pageNo,
+            //总页码
+            total: totalPage,
+            //总数据条数
+            totalRecords: totalRecords,
+            //链接前部
+            hrefFormer: 'pager_test',
+            //链接尾部
+            hrefLatter: '.html',
+            getLink: function (n) {
+                //alert(n);
+                return this.hrefFormer + this.hrefLatter + "?pageNo=" + n;
+            }
+            /*      lang : {
+                        firstPageText : '|<',
+                        lastPageText : '>|',
+                        prePageText : '<',
+                        nextPageText : '>',
+                        totalPageBeforeText : '共',
+                        totalPageAfterText : '页',
+                        totalRecordsAfterText : '条数据',
+                        gopageBeforeText : '转到',
+                        gopageButtonOkText : '确定',
+                        gopageAfterText : '页',
+                        buttonTipBeforeText : '第',
+                        buttonTipAfterText : '页'
+                    } */
+            //,
+            //mode : 'click',//默认值是link，可选link或者click
+            /*      click : function(n){
+                      //this.selectPage(n);
+                      alert(n);
+                      return false;
+                    } */
+        });
+    });
+</script>
+
+</body>
+</html>
